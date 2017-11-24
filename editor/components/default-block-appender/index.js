@@ -67,5 +67,7 @@ export default connect(
 	( state ) => ( {
 		count: getBlockCount( state ),
 	} ),
-	{ onInsertBlock: insertBlock }
+	{ onInsertBlock: insertBlock },
+	undefined,
+	{ storeKey: 'editorStore' }
 )( DefaultBlockAppender );

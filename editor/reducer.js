@@ -7,7 +7,6 @@ import {
 	flow,
 	partialRight,
 	difference,
-	get,
 	reduce,
 	keyBy,
 	first,
@@ -471,24 +470,6 @@ export function blockInsertionPoint( state = {}, action ) {
  */
 export function preferences( state = PREFERENCES_DEFAULTS, action ) {
 	switch ( action.type ) {
-		case 'TOGGLE_SIDEBAR':
-			return {
-				...state,
-				isSidebarOpened: ! state.isSidebarOpened,
-			};
-		case 'TOGGLE_SIDEBAR_PANEL':
-			return {
-				...state,
-				panels: {
-					...state.panels,
-					[ action.panel ]: ! get( state, [ 'panels', action.panel ], false ),
-				},
-			};
-		case 'SWITCH_MODE':
-			return {
-				...state,
-				mode: action.mode,
-			};
 		case 'INSERT_BLOCKS':
 			// put the block in the recently used blocks
 			let recentlyUsedBlocks = [ ...state.recentlyUsedBlocks ];
@@ -513,23 +494,6 @@ export function preferences( state = PREFERENCES_DEFAULTS, action ) {
 					.concat( difference( commonBlocks, state.recentlyUsedBlocks ) )
 					.slice( 0, MAX_RECENT_BLOCKS ),
 			};
-		case 'TOGGLE_FEATURE':
-			return {
-				...state,
-				features: {
-					...state.features,
-					[ action.feature ]: ! state.features[ action.feature ],
-				},
-			};
-	}
-
-	return state;
-}
-
-export function panel( state = 'document', action ) {
-	switch ( action.type ) {
-		case 'SET_ACTIVE_PANEL':
-			return action.panel;
 	}
 
 	return state;
@@ -717,7 +681,6 @@ export default optimist( combineReducers( {
 	blocksMode,
 	blockInsertionPoint,
 	preferences,
-	panel,
 	saving,
 	notices,
 	metaBoxes,
